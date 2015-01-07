@@ -93,18 +93,13 @@ void Swizzle(Class c, SEL orig, SEL new)
     NSLog(@"Spatialite initialization");
     spatialite_init_geos();
     spatialite_conn = spatialite_alloc_connection();
-    spatialite_init_ex(_db, spatialite_conn, 1);
+    spatialite_init_ex(_db, spatialite_conn, 0);
 }
 
 -(void)dealloc
 {
-    // remove reference to dummyObject
-    SpatialDatabaseInstances--;
-    if (SpatialDatabaseInstances == 0)
-    {
-        NSLog(@"Terminating spatialite");
-        spatialite_cleanup_ex(spatialite_conn);
-    }
+    NSLog(@"Terminating spatialite");
+    spatialite_cleanup_ex(spatialite_conn);
 }
 
 @end
